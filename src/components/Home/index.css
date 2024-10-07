@@ -1,0 +1,72 @@
+.user-story-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.user-story-image:hover {
+  border: 4px solid #007bff;
+}
+
+.home-container {
+  padding: 20px 20px 20px 10px;
+  margin: 15px;
+}
+
+.user-story-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.slider-container {
+  position: relative;
+}
+
+.slick-prev {
+  position: absolute;
+  left: -19px; /* Adjust the left position as needed */
+  top: 50px;
+  color: #007bff;
+}
+
+.slick-next {
+  position: absolute;
+  color: #007bff;
+  top: 50px;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  color: #007bff;
+}
+.user-name {
+  font-size: 12px;
+  font-weight: 700;
+}
+.container {
+  outline: none; /* Remove outline */
+  background-color: transparent; /* Default background */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 768px) {
+  .home-container {
+    padding: 40px 40px 40px 80px;
+  }
+  .slick-prev {
+    left: -50px;
+    top: 50px;
+  }
+  .slick-next {
+    top: 50px;
+  }
+  .user-name {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,112 @@
+.website-login {
+  width: 100%;
+}
+.website-logo {
+  width: 82px;
+  height: 42px;
+  align-self: center;
+}
+
+.form {
+  background-color: #fefeff;
+  box-shadow: 0px 8px 40px 0px #07070714;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.bg-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 100vh;
+  gap: 10px;
+  padding: 10px;
+}
+
+.insta-share-heading {
+  font-family: 'Roboto';
+  color: #262626;
+  font-weight: 500;
+  font-size: 24px;
+  align-self: center;
+  margin-bottom: 40px;
+}
+
+.label {
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 14px;
+  color: #262626;
+  line-height: 16px;
+}
+
+.input {
+  background-color: #eeeeee;
+  border: none;
+  width: 270px;
+  height: 40px;
+  border-radius: 2px;
+  margin: 15px 10px 10px 0;
+  cursor: pointer;
+  outline: none;
+  padding: 10px;
+  color: #262626;
+  line-height: 24px;
+  font-size: 16px;
+  font-family: 'Roboto';
+  font-weight: 600;
+}
+
+.login-button {
+  background-color: #4094ef;
+  width: 270px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  cursor: pointer;
+  outline: none;
+}
+
+.input:hover {
+  transform: scale(1.02);
+}
+.login-button:hover {
+  transform: scale(1.02);
+}
+
+.error-msg {
+  color: #ef4444;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .logo-container {
+    width: 582px;
+    height: 373px;
+  }
+  .bg-container {
+    flex-direction: row;
+  }
+  .form {
+    width: 456px;
+    height: 430px;
+    top: 267px;
+    left: 824px;
+  }
+  .input {
+    width: 360px;
+  }
+  .login-button {
+    width: 360px;
+  }
+}
