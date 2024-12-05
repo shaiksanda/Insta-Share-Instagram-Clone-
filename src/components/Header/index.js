@@ -1,73 +1,284 @@
-import {Component} from 'react'
-import {Link, withRouter} from 'react-router-dom'
+// import {Component} from 'react'
+// import {Link, withRouter} from 'react-router-dom'
 
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+// import {FaSearch} from 'react-icons/fa'
+// import {HiHome} from 'react-icons/hi'
+// import {CgProfile} from 'react-icons/cg'
+// import {FiLogOut} from 'react-icons/fi'
+// import './index.css'
+
+// class Header extends Component {
+//   handleLogout = () => {
+//     const {history} = this.props
+//     Cookies.remove('jwt_token')
+//     history.replace('/login')
+//   }
+
+//   render() {
+//     return (
+//       <div className="header-container">
+//         <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
+//           <Link to="/">
+//             <img
+//               src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1727945534/logo_fk7sop.png"
+//               alt="website logo"
+//               className="website-logo-header"
+//             />
+//           </Link>
+//           <h1 className="insta-share-heading-header">Insta Share</h1>
+//         </div>
+//         <div className="small-container">
+//           <Link to="/" className="nav-item-link">
+//             <HiHome className="nav-item-link" size={20} />
+//           </Link>
+//           <button className="button" type="button" testid="searchIcon">
+//             <FaSearch />
+//           </button>
+//           <CgProfile size={20} />
+//           <FiLogOut onClick={this.handleLogout} size={20} />
+//         </div>
+//         <div className="medium-container">
+//           <div className="search-box">
+//             <input
+//               className="search-input"
+//               type="search"
+//               placeholder="Search Caption"
+//             />
+//             <button className="button" type="button" testid="searchIcon">
+//               <FaSearch />
+//             </button>
+//           </div>
+//           <Link
+//             to="/"
+//             className="header-link nav-item-link"
+//             style={{color: '#4094EF'}}
+//           >
+//             Home
+//           </Link>
+//           <Link className="header-link nav-item-link" to="/profile">
+//             Profile
+//           </Link>
+//           <button
+//             onClick={this.handleLogout}
+//             type="button"
+//             className="logout-button"
+//           >
+//             Logout
+//           </button>
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+
+// export default withRouter(Header)
+
+import {Component} from 'react'
+import {withRouter, Link} from 'react-router-dom'
 import {FaSearch} from 'react-icons/fa'
-import {HiHome} from 'react-icons/hi'
-import {CgProfile} from 'react-icons/cg'
-import {FiLogOut} from 'react-icons/fi'
+import Cookies from 'js-cookie'
+import {IoIosCloseCircle} from 'react-icons/io'
+
 import './index.css'
 
 class Header extends Component {
-  handleLogout = () => {
+  state = {displayMenu: false, showSearchbar: false, searchInput: ''}
+
+  showMenubar = () => {
+    this.setState({displayMenu: true})
+  }
+
+  closeMenubar = () => {
+    this.setState({displayMenu: false})
+  }
+
+  toggleSearchbar = () => {
+    this.setState(prevState => ({
+      showSearchbar: !prevState.showSearchbar,
+    }))
+  }
+
+  onClickLogout = () => {
     const {history} = this.props
     Cookies.remove('jwt_token')
     history.replace('/login')
   }
 
-  render() {
+  changeInput = event => {
+    this.setState({searchInput: event.target.value})
+  }
+
+  searchClicked = () => {
+    const {searchFunction} = this.props
+    const {searchInput} = this.state
+
+    searchFunction(searchInput)
+  }
+
+  renderMobileSearchbar = () => {
+    const {searchInput} = this.state
     return (
-      <div className="header-container">
-        <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
-          <Link to="/">
-            <img
-              src="https://res.cloudinary.com/dq4yjeejc/image/upload/v1727945534/logo_fk7sop.png"
-              alt="website logo"
-              className="website-logo-header"
-            />
-          </Link>
-          <h1 className="insta-share-heading-header">Insta Share</h1>
-        </div>
-        <div className="small-container">
-          <Link to="/" className="nav-item-link">
-            <HiHome className="nav-item-link" size={20} />
-          </Link>
-          <button className="button" type="button" testid="searchIcon">
-            <FaSearch />
-          </button>
-          <CgProfile size={20} />
-          <FiLogOut onClick={this.handleLogout} size={20} />
-        </div>
-        <div className="medium-container">
-          <div className="search-box">
-            <input
-              className="search-input"
-              type="search"
-              placeholder="Search Caption"
-            />
-            <button className="button" type="button" testid="searchIcon">
-              <FaSearch />
-            </button>
-          </div>
-          <Link
-            to="/"
-            className="header-link nav-item-link"
-            style={{color: '#4094EF'}}
-          >
+      <div className="search-bar-mobile">
+        <input
+          type="search"
+          value={searchInput}
+          placeholder="Search Caption"
+          className="search-input"
+          onChange={this.changeInput}
+        />
+        <button
+          className="search-button"
+          type="button"
+          data-testid="searchIcon"
+          onClick={this.searchClicked}
+        >
+          <FaSearch className="search-icon" aria-label="close" />
+        </button>
+      </div>
+    )
+  }
+
+  renderLargeSearchbar = () => {
+    const {searchInput} = this.state
+    return (
+      <div className="search-bar">
+        <input
+          type="search"
+          value={searchInput}
+          placeholder="Search Caption"
+          className="search-input"
+          onChange={this.changeInput}
+        />
+        <button
+          className="search-button"
+          type="button"
+          // eslint-disable-next-line react/no-unknown-property
+          data-testid="searchIcon"
+          onClick={this.searchClicked}
+        >
+          <FaSearch className="search-icon" aria-label="close" />
+        </button>
+      </div>
+    )
+  }
+
+  renderMenubar = () => (
+    <div className="nav-menu-mobile">
+      <ul className="nav-menu-list-mobile">
+        <li className="nav-menu-item-mobile">
+          <Link to="/" className="nav-link-mobile">
             Home
           </Link>
-          <Link className="header-link nav-item-link" to="/profile">
+        </li>
+
+        <li
+          className="nav-menu-item-mobile search-list-item"
+          onClick={this.toggleSearchbar}
+        >
+          Search
+        </li>
+
+        <li className="nav-menu-item-mobile">
+          <Link to="/my-profile" className="nav-link-mobile">
             Profile
           </Link>
+        </li>
+
+        <li className="nav-menu-item-mobile">
           <button
-            onClick={this.handleLogout}
+            onClick={this.onClickLogout}
             type="button"
-            className="logout-button"
+            className="logout-desktop-btn"
           >
             Logout
           </button>
+        </li>
+
+        <li className="nav-menu-item-mobile">
+          <button
+            type="button"
+            className="close-menu-button"
+            onClick={this.closeMenubar}
+          >
+            <IoIosCloseCircle className="close-icon" aria-label="close" />
+          </button>
+        </li>
+      </ul>
+    </div>
+  )
+
+  render() {
+    const {displayMenu, showSearchbar} = this.state
+    return (
+      <nav className="nav-header">
+        <div className="nav-content">
+          <div className="nav-bar-mobile-logo-container">
+            <div className="mobile-logo-container">
+              <Link to="/">
+                <img
+                  src="https://res.cloudinary.com/dzvmpn4nr/image/upload/v1679656831/Standard_Collection_8_yktalp.svg"
+                  alt="website logo"
+                  className="website-logo"
+                />
+              </Link>
+              <h1 className="mobile-website-name">Insta Share</h1>
+            </div>
+            <button
+              onClick={this.showMenubar}
+              type="button"
+              className="hamburger-button"
+              // eslint-disable-next-line react/no-unknown-property
+              testid="hamburgerIcon"
+            >
+              <img
+                src="https://res.cloudinary.com/dzvmpn4nr/image/upload/v1679742700/menu_xpx011.svg"
+                className="hamburger-icon"
+                alt="hamburger icon"
+              />
+            </button>
+          </div>
+          {displayMenu ? this.renderMenubar() : null}
+          {showSearchbar ? this.renderMobileSearchbar() : null}
+          <div className="nav-bar-large-container">
+            <div className="logo-container">
+              <Link to="/">
+                <img
+                  src="https://res.cloudinary.com/dzvmpn4nr/image/upload/v1679656831/Standard_Collection_8_yktalp.svg"
+                  alt="website logo"
+                  className="website-logo"
+                />
+              </Link>
+              <h1 className="website-name">Insta Share</h1>
+            </div>
+            <div className="links-container">
+              {this.renderLargeSearchbar()}
+              <ul className="nav-menu">
+                <li className="nav-menu-item">
+                  <Link to="/" className="nav-link">
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-menu-item">
+                  <Link to="/my-profile" className="nav-link">
+                    Profile
+                  </Link>
+                </li>
+
+                <li className="nav-menu-item">
+                  <button
+                    type="button"
+                    className="logout-desktop-btn"
+                    onClick={this.onClickLogout}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
+      </nav>
     )
   }
 }
